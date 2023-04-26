@@ -16,7 +16,7 @@ echo 'Make sure you taskset and limit cpu time for the envoy process'
 set PROXY_ID (ps -C "envoy" -o pid= | string trim)
 
 set SUFFIX "_$argv[3]"
-set EXT "data"
+set EXT "csv"
 
 if [ "$argv[1]" = 'stat' ]
 	set CMD 'stat'
