@@ -1,36 +1,34 @@
 static_resources:
   listeners:
-  - name: listener_postgres
-      address:
-        socket_address:
-          protocol: TCP
-          address: 0.0.0.0
-          port_value: 54322
-      filter_chains:
-        filters:
-          - name: envoy.filters.network.rbac
-            config:
-              stat_prefix: rbac_postgres
-              rules:
-                action: ALLOW
-                policies:
-                  "allow":
-                    permissions:
-                      - any: true
-                    principals:
-                      - remote_ip:
-                          address_prefix: XX.XX.XX.XX
-                          prefix_len: 32
-          - name: envoy.tcp_proxy
-            config:
-              stat_prefix: tcp_postgres
-              cluster: service_envoyproxy_io
+  - name: listener_0
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 10000
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.rbac
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.rbac.v3.RBAC
+          rules:
+            policies:
+            - name: allow-all
+              permissions:
+              - any: true
+      - name: envoy.filters.network.tcp_proxy
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+          stat_prefix: tcp
+          cluster: service_envoyproxy_io
+    transport_socket:
+      name: envoy.transport_sockets.raw_buffer
   clusters:
   - name: service_envoyproxy_io
     connect_timeout: 0.25s
     type: STATIC
     # Comment out the following line to test on v6 networks
     dns_lookup_family: V4_ONLY
+    lb_policy: ROUND_ROBIN
     load_assignment:
       cluster_name: service_envoyproxy_io
       endpoints:
