@@ -57,7 +57,7 @@ else if [ "$argv[1]" = 'trace' ]
 end
 
 set SUB_DIR "$argv[2]"
-set DIR "perf_data/$CMD/$argv[2]"
+set DIR "perf_data/l4/$CMD/$argv[2]"
 set PID $PROXY_ID
 
 set RATE "$argv[-1]"
