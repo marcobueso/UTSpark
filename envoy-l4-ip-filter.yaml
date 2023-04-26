@@ -15,6 +15,10 @@ static_resources:
               allow-all:
                 permissions:
                   - any: true
+      - name: envoy.filters.network.connection_limit
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.connection_limit.v3.ConnectionLimit
+          max_connections: 50000
   clusters:
   - name: service_envoyproxy_io
     connect_timeout: 0.25s
