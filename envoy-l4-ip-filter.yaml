@@ -10,6 +10,7 @@ static_resources:
       - name: envoy.filters.network.rbac
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.rbac.v3.RBAC
+          stat_prefix: tcp.
           rules:
             policies:
               allow-all:
