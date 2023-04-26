@@ -11,10 +11,11 @@ static_resources:
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.rbac.v3.RBAC
           rules:
+            action: ALLOW
             policies:
-            - name: allow-all
-              permissions:
-              - any: true
+              allow-all:
+                permissions:
+                  - any: true
       - name: envoy.filters.network.tcp_proxy
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
