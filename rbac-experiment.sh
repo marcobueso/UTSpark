@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo mkdir -p perf_data/l4/stat/nofilter perf_data/l4/stat/rbac
+
 # Start envoy with no filter config
 sudo ./setup_envoy_alone.sh
 sudo ./setup_perf.sh
