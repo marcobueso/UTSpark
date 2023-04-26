@@ -16,10 +16,10 @@ static_resources:
                   "allow":
                     permissions:
                       - any: true
-                    principals:
-                      - remote_ip:
-                          address_prefix: XX.XX.XX.XX
-                          prefix_len: 32
+                    # principals:
+                    #   - remote_ip:
+                    #       address_prefix: XX.XX.XX.XX
+                    #       prefix_len: 32
           # - name: envoy.tcp_proxy
           #   config:
           #     stat_prefix: tcp_postgres
