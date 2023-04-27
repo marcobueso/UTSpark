@@ -29,13 +29,13 @@ def extract_values(filename, cycles_u_list, cycles_k_list, instructions_u_list, 
         next(f)
         reader = csv.reader(f, delimiter=',')
         for row in reader:
-            if row[3] == 'cycles:u':
+            if row[3] == 'cycles:u' and row[1].isnumeric():
                 cycles_u_list.append(int(row[1]))
-            elif row[3] == 'cycles:k':
+            elif row[3] == 'cycles:k' and row[1].isnumeric():
                 cycles_k_list.append(int(row[1]))
-            elif row[3] == 'instructions:u':
+            elif row[3] == 'instructions:u' and row[1].isnumeric():
                 instructions_u_list.append(int(row[1]))
-            elif row[3] == 'instructions:k':
+            elif row[3] == 'instructions:k' and row[1].isnumeric():
                 instructions_k_list.append(int(row[1]))
 
 # Parse values from each file

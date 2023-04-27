@@ -15,7 +15,7 @@ sudo timeout 10 ./perf-l4-10ms.sh stat nofilter 1000
 sudo kill $PID1
 
 # Start envoy with RBAC network filter config
-sudo ./start_envoy.sh envoy-l4-ip-filter.yaml 1 100 &
+sudo ./start_envoy.sh envoy-l4-rbac-deny.yaml 1 100 &
 PID2=$!
 sleep 5
 

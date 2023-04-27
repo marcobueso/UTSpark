@@ -8,7 +8,7 @@
 set IP '0.0.0.0'
 set PORT '10000'
 
-mkdir -p perf_data/l4/stat/rbac
+mkdir -p perf_data/l4/stat/rbac perf_data/l4/stat/nofilter
 
 # Auto updates the envoy pid to be profiled
 # Manually set the PID if running with a service due to multiple envoy processses
