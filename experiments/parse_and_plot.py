@@ -79,16 +79,42 @@ instr_counts = {
     "Kernel": np.array([nofilter_500_instructions_k_avg, nofilter_1000_instructions_k_avg,
                         rbac_500_instructions_k_avg, rbac_1000_instructions_k_avg]),
 }
+
+# total instructions per request, to be annotated on each bar
+ins_per_req = []
+for idx, experiment in enumerate(instr_counts["User"]): # starts at 0
+    total_ins = instr_counts["User"][idx] + instr_counts["Kernel"][idx]
+    if idx % 2 == 0:
+        ins_per_req.append( total_ins / 500)
+    else:
+        ins_per_req.append( total_ins / 1000)
+
+
+
+# Plot
 width = 0.4
 fig, ax = plt.subplots()
 bottom = np.zeros(4)
 
-for boolean, instr_count in instr_counts.items():
-    p = ax.bar(labels, instr_count, width, label=boolean, bottom=bottom)
-    bottom += instr_count
+for i, boolean in enumerate(instr_counts.keys()):
+    ins_count = instr_counts[boolean]
+    p = ax.bar(labels, ins_count, width, label=boolean, bottom=bottom)
+    bottom += ins_count
+
+# Add ins/req annotation
+for i, count in enumerate(ins_per_req):
+    rate = 500
+    if i%2 == 1:
+        rate *= 2
+    ax.annotate(str(int(count))+ " instr/req",
+                xy=(i, count*rate),
+                xytext=(0, 2),
+                textcoords="offset points",
+                ha='center', va='bottom')
+
 
 ax.set_title("Instruction Counts for 1 CPU")
-ax.legend(loc="upper right")
+ax.legend(loc="upper left")
 
 plt.savefig('/home/mbues/Spark/UTSpark/experiments/figures/instructions-nofilter-rbac-1cpu-100-rate-500-1000.png')
 plt.show()
