@@ -144,6 +144,7 @@ i=1
 
 for i, boolean in enumerate(cycle_counts.keys()):
     cycle_count = cycle_counts[boolean]
+    print("Cycle count ", cycle_count)
     p = ax.bar(labels, cycle_count, width, label=boolean, bottom=bottom)
     bottom += cycle_count
 
