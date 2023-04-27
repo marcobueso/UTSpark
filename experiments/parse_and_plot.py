@@ -22,7 +22,7 @@ rbac_1000_cycles_k = []
 rbac_1000_instructions_u = []
 rbac_1000_instructions_k = []
 
-# Define a function to extract values from the CSV file
+# extract values from the CSV file
 def extract_values(filename, cycles_u_list, cycles_k_list, instructions_u_list, instructions_k_list):
     with open(filename, 'r') as f:
         next(f)
@@ -181,4 +181,5 @@ print("rbac_500_instructions_k:", rbac_500_instructions_k[0:10])
 print("rbac_1000_cycles_u:", rbac_1000_cycles_u[0:10])
 print("rbac_1000_cycles_k:", rbac_1000_cycles_k[0:10])
 print("rbac_1000_instructions_u:", rbac_1000_instructions_u[0:10])
+print("rbac_1000_instructions_k:", rbac_1000_instructions_k[0:10])
 
