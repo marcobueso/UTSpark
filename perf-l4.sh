@@ -8,8 +8,6 @@
 set IP '0.0.0.0'
 set PORT '10000'
 
-mkdir -p perf_data/l4/stat/rbac
-
 # Auto updates the envoy pid to be profiled
 # Manually set the PID if running with a service due to multiple envoy processses
 echo 'Make sure you taskset and limit cpu time for the envoy process'
@@ -62,7 +60,7 @@ set PID $PROXY_ID
 
 set RATE "$argv[-1]"
 
-wrk -c1 -t1 -d12 "-R$RATE" "http://$IP:$PORT/param?query=demo" > "$DIR"/latency_stats_"$RATE$SUFFIX".txt &
+wrk -t1 -c1 -d12 "-R$RATE" "http://$IP:$PORT/param?query=demo" > "$DIR"/latency_stats_"$RATE$SUFFIX".txt &
 echo "Starting requests to server with $RATE req/s"
 
 set OUTPUT_FILE "$DIR"/"$RATE$SUFFIX"."$EXT"
