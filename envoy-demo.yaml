@@ -36,7 +36,7 @@ static_resources:
     connect_timeout: 0.25s
     type: STATIC
     # Comment out the following line to test on v6 networks
-    dns_lookup_family: V4_ONLY
+    # dns_lookup_family: V4_ONLY
     load_assignment:
       cluster_name: service_envoyproxy_io
       endpoints:
