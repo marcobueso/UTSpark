@@ -6,8 +6,8 @@ sudo mkdir -p tls-results/ perf_data/l4/stat/tls
 sudo ./setup_envoy_alone.sh
 sudo ./setup_perf.sh
 
-# Start envoy with RBAC network filter config
-sudo ./start_envoy.sh envoy-l4-ip-filter.yaml 1 100 &
+# Start envoy with TLS network filter config
+sudo ./start_envoy.sh envoy-tls.yaml 1 100 &
 PID2=(ps -C "envoy" -o pid=)
 sleep 5
 
