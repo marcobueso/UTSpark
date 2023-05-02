@@ -60,7 +60,7 @@ set PID $PROXY_ID
 
 set RATE "$argv[-1]"
 
-wrk -t5 -d12 "-R$RATE" "http://$IP:$PORT/param?query=demo" > "$DIR"/latency_stats_"$RATE$SUFFIX".txt &
+wrk -c1 -t5 -d12 "-R$RATE" "http://$IP:$PORT/param?query=demo" > "$DIR"/latency_stats_"$RATE$SUFFIX".txt &
 echo "Starting requests to server with $RATE req/s"
 
 set OUTPUT_FILE "$DIR"/"$RATE$SUFFIX"."$EXT"
