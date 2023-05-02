@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo mkdir -p tls-results/
+sudo mkdir -p tls-results/ perf_data/l4/stat/tls
 
 # Start envoy with no filter config
 sudo ./setup_envoy_alone.sh
