@@ -17,9 +17,14 @@ static_resources:
               "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
               log_format: 
                 text_format: "%LOCAL_REPLY_BODY%:%RESPONSE_CODE%: Custom Header: %REQ(Hello)%\n"
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
           route_config:
+            name: local_route
             virtual_hosts:
-            - name: default
+            - name: local_service
               domains: ["*"]
               routes:
               - match: {prefix: "/"}
@@ -33,9 +38,7 @@ static_resources:
             tls_certificates:
             - certificate_chain: {filename: "certs/servercert.pem"}
               private_key: {filename: "certs/serverkey.pem"}
-            validation_context:
-              trusted_ca:
-                filename: certs/cacert.pem
+
   clusters:
   - name: service_envoyproxy_io
     connect_timeout: 0.25s
@@ -51,19 +54,3 @@ static_resources:
               socket_address:
                 address: 0.0.0.0
                 port_value: 3000
-    transport_socket:
-      name: envoy.transport_sockets.tls
-      typed_config:
-        "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
-        common_tls_context:
-          tls_certificates:
-          - certificate_chain: {"filename": "certs/servercert.pem"}
-            private_key: {"filename": "certs/serverkey.pem"}
-            #ocsp_staple: {"filename": "certs/server_ocsp_resp.der"}
-          validation_context:
-            # match_typed_subject_alt_names:
-            # - san_type: DNS
-            #   matcher:
-            #     exact: "foo"
-            trusted_ca:
-              filename: /etc/ssl/certs/ca-certificates.crt
